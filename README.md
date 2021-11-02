@@ -1,3 +1,9 @@
+# Aviso!
+
+
+Esse é o projeto inicial do curso UStart .net o repositório com o projeto final está no endereço https://github.com/silvagpe/ustart-web
+
+
 # WebclientAngular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.9.
