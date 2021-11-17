@@ -9,4 +9,14 @@
             </li>
         </ul>
     </li>
+    <li nz-submenu nzTitle="Clientes" nzIcon="user">
+        <ul>
+            <li nz-menu-item nzMatchRouter [nzMatchRouterExact]="true">
+                <a routerLink="/cliente">Consulta</a>
+            </li>
+            <li nz-menu-item nzMatchRouter [nzMatchRouterExact]="true">
+                <a routerLink="/cliente/cad-cliente">Novo cliente</a>
+            </li>
+        </ul>
+    </li>
 </ul>
