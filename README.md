@@ -37,10 +37,10 @@ https://angular.io/cli/generate
 
 ```
 Module
-ng g module cliente  --routing
+ng g module imovel  --routing
 
 Component
-ng g c cliente/pages/cliente --module cliente.module
+ng g c imovel/pages/cad-imovel --module imovel.module --skip-tests
 ng g c customer/pages/registration-customer --module customer.module
 
 
