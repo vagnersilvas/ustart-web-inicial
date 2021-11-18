@@ -39,11 +39,6 @@ export class ClienteComponent implements OnInit {
   public localizar(event: any): void {    
     this.pesquisar(event.target.value);
 
-    // if (value && value.trim() !== '') {
-    //   this.pesquisar(value);
-    // } else {
-    //   this.limparPesquisa();
-    // }
   }
 
   private pesquisar(pesquisa: string): void {
