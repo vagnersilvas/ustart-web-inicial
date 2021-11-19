@@ -1,5 +1,5 @@
 <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-    <li nz-submenu nzOpen nzTitle="Usuários" nzIcon="user">
+    <li nz-submenu nzTitle="Usuários" nzIcon="user">
         <ul>
             <li nz-menu-item nzMatchRouter [nzMatchRouterExact]="true">
                 <a routerLink="/usuarios">Consulta</a>
@@ -16,6 +16,16 @@
             </li>
             <li nz-menu-item nzMatchRouter [nzMatchRouterExact]="true">
                 <a routerLink="/cliente/cad-cliente">Novo cliente</a>
+            </li>
+        </ul>
+    </li>
+    <li nz-submenu nzTitle="Imovel" nzIcon="user">
+        <ul>
+            <li nz-menu-item nzMatchRouter [nzMatchRouterExact]="true">
+                <a routerLink="/imovel">Consulta</a>
+            </li>
+            <li nz-menu-item nzMatchRouter [nzMatchRouterExact]="true">
+                <a routerLink="/imovel/cad-imovel">Novo imovel</a>
             </li>
         </ul>
     </li>
