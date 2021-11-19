@@ -10,4 +10,8 @@ export const AppRoutes = {
     base: () => "cliente",
     CadCliente: () => { return AppRoutes.Cliente.base() + "/cad-cliente" },
   },
+  Imovel: {
+    base: () => "imovel",
+    CadImovel: () => { return AppRoutes.Imovel.base() + "/cad-imovel" },
+  },
 };

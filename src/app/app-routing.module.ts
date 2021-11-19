@@ -26,6 +26,11 @@ const routes: Routes = [
     loadChildren: () => import('./cliente/cliente.module').then(m => m.ClientesModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: AppRoutes.Imovel.base(),
+    loadChildren: () => import('./imovel/imovel.module').then(m => m.ImovelModule),
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({
