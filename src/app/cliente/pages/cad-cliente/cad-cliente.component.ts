@@ -32,8 +32,6 @@ export class CadClienteComponent implements OnInit {
 
   public form: FormGroup = new FormGroup({
 
-    imovelId: new FormControl(null, []),
-    imovel: new FormControl(true, []),
     nome: new FormControl(null, [Validators.required]),
     razaoSocial: new FormControl(null, [Validators.required]),
     cnpj: new FormControl(null, []),
@@ -49,7 +47,7 @@ export class CadClienteComponent implements OnInit {
     fone: new FormControl(null, []),
     email: new FormControl(null, [Validators.email]),
 
-  });
+  })
 
   constructor(
     private router: Router,
@@ -116,10 +114,6 @@ export class CadClienteComponent implements OnInit {
     //Se o form estiver válido segue para o processo de salvar ou atualizar
     if (this.form.valid) {
 
-      // this.cliente.cidadeId = this.cliente.cidadeId.toString();
-      // this.cliente.estadoId = this.cliente.estadoId.toString();
-
-      //Verificar qual operaçao o usuário está querendo executar
       const operacao = this.novoRegistro
         ? this.clienteService.add(this.cliente)
         : this.clienteService.update(this.cliente);
@@ -147,8 +141,6 @@ export class CadClienteComponent implements OnInit {
 
   private carregarDados() {
     if (this.cliente) {
-      this.form.get("imovelId").setValue(this.cliente.imovelId);
-      this.form.get("imovel").setValue(this.cliente.imovel);
       this.form.get("nome").setValue(this.cliente.nome);
       this.form.get("razaoSocial").setValue(this.cliente.RazaoSocial);
       this.form.get("cnpj").setValue(this.cliente.CNPJ);

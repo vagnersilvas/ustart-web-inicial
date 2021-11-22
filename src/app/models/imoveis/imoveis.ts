@@ -1,9 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
+import { Cliente } from '../clientes/cliente';
+import { Usuario } from '../users/usuario';
 
 export class Imovel {
     public id: string
     public clienteId: string
+    public cliente: Cliente
     public usuarioId: string
+    public usuario: Usuario
     public tipoImovel: string
     public urlImagem: string
     public rua: string

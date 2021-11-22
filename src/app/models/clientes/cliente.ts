@@ -1,9 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
+import { Imovel } from '../imoveis/imoveis';
 
 export class Cliente {
     public id: string
     public imovelId: string
-    public imovel: String
+    public imovel: Imovel
     public nome: string
     public RazaoSocial: string
     public CNPJ: string

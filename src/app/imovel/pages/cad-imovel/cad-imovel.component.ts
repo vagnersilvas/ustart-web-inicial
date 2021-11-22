@@ -3,12 +3,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AppRoutes } from 'src/app/app-routes';
+import { ClienteService } from 'src/app/data-services/clientes.service';
 import { IbgeService } from 'src/app/data-services/ibge.service';
 import { ImovelService } from 'src/app/data-services/imovel.service';
+import { UsuariosService } from 'src/app/data-services/usuarios.service';
 import { AssignFormHelper } from 'src/app/helper/AssignFormHelper';
+import { Cliente } from 'src/app/models/clientes/cliente';
 import { Cidade } from 'src/app/models/ibge/cidade';
 import { Estado } from 'src/app/models/ibge/estado';
 import { Imovel } from 'src/app/models/imoveis/imoveis';
+import { Usuario } from 'src/app/models/users/usuario';
 
 @Component({
   selector: 'app-cad-imovel',
@@ -18,6 +22,14 @@ import { Imovel } from 'src/app/models/imoveis/imoveis';
 export class CadImovelComponent implements OnInit {
 
   private idSelecionado: string;
+  public clienteSelecionado: string;
+  public carregandoClientes: boolean = false;
+  public cliente: Cliente[]=[];
+
+  public usuarioSelecionado: string;
+  public carregandoUsuario: boolean = false;
+  public usuario: Usuario[]=[];
+
   public novoRegistro: boolean = false;
   public imovel: Imovel;
   public ImovelFinalidade: boolean = true;
@@ -31,38 +43,38 @@ export class CadImovelComponent implements OnInit {
   public cidadeSelecionada: Number = 0;
 
   public form: FormGroup = new FormGroup({
-    id: new FormControl(null,[]),
-    clienteId: new FormControl(null,[Validators.required]),
-    usuarioId: new FormControl(null,[]),
-    tipoImovel: new FormControl(null,[Validators.required]),
-    descricao: new FormControl(null,[]),
-    finalidade: new FormControl(null,[Validators.required]),
-    suite: new FormControl(null,[]),
-    dormitorios: new FormControl(null,[]),
-    vagasGaragem: new FormControl(null,[]),
-    areaContruida: new FormControl(null,[]),
-    areaTotal: new FormControl(null,[]),
-    urlImagem: new FormControl(null,[]),
-    rua: new FormControl(null,[]),
-    numero: new FormControl(null,[]),
-    bairro: new FormControl(null,[]),
-    complemento: new FormControl(null,[]),
-    cep: new FormControl(null,[]),
-    estadoId: new FormControl(null,[]),
-    cidadeId: new FormControl(null,[]),
-    cidadeNome: new FormControl(null,[]),
-    valorAluguel: new FormControl(null,[Validators.required]),
-    valorVenda: new FormControl(null,[Validators.required]),
-    situacao: new FormControl(null,[]),
+    usuarioId: new FormControl(null, [Validators.required]),
+    clienteId: new FormControl(null, [Validators.required]),
+    tipoImovel: new FormControl(null, []),
+    descricao: new FormControl(null, []),
+    finalidade: new FormControl(null, []),
+    suite: new FormControl(null, []),
+    dormitorios: new FormControl(null, []),
+    vagasGaragem: new FormControl(0, []),
+    areaContruida: new FormControl(1, [Validators.min(1)]),
+    areaTotal: new FormControl(1, [Validators.min(1)]),
+    urlImagem: new FormControl(null, []),
+    rua: new FormControl(null, []),
+    numero: new FormControl(null, []),
+    bairro: new FormControl(null, []),
+    complemento: new FormControl(null, []),
+    cep: new FormControl(null, []),
+    estadoId: new FormControl(null, []),
+    cidadeId: new FormControl(null, []),
+    valorAluguel: new FormControl(1, [Validators.min(1)]),
+    valorVenda: new FormControl(1, [Validators.min(1)]),
+    situacao: new FormControl(null, []),
 
   })
 
   constructor(
     private router: Router,
     private imovelService: ImovelService,
+    private clienteService: ClienteService,
     private activatedRoute: ActivatedRoute,
     private modalService: NzModalService,
-    private ibgeService: IbgeService
+    private ibgeService: IbgeService,
+    private usuarioService: UsuariosService
 
   ) {
     this.activatedRoute.params.subscribe(
@@ -73,15 +85,18 @@ export class CadImovelComponent implements OnInit {
         if (this.idSelecionado == null || this.idSelecionado.toLowerCase() === 'novo') {
           this.novoRegistro = true;
           this.imovel = new Imovel();
+          //Caso contrário devemos consultar na base para atualizar os valores
         } else {
           this.pesquisarPorId();
         }
       });
-   }
+  }
 
   ngOnInit(): void {
+    this.carregarClientes();
     this.ImovelFinalidadeChange();
     this.carregarEstados();
+    this.carregarUsuarios();
   }
 
   public ImovelFinalidadeChange() {
@@ -96,7 +111,38 @@ export class CadImovelComponent implements OnInit {
     } else {
       this.form.get("valorVenda").clearValidators()
     }
-  } 
+  }
+ 
+  private carregarClientes() {
+    this.clienteService.get("").subscribe(
+      (result) => {
+        this.carregandoClientes = false;
+        this.cliente = result;
+      },
+      (error) => {
+        this.carregandoClientes = false;
+        this.modalService.error({
+          nzTitle: 'Falha ao carregar os clientes',
+          nzContent: 'Não foi possível carregar a lista de clientes.'
+        });
+        console.log(error);
+      });
+  }
+  private carregarUsuarios() {
+    this.usuarioService.getUsers("").subscribe(
+      (result) => {
+        this.carregandoUsuario = false;
+        this.usuario = result;
+      },
+      (error) => {
+        this.carregandoUsuario = false;
+        this.modalService.error({
+          nzTitle: 'Falha ao carregar os usuario',
+          nzContent: 'Não foi possível carregar a lista de clientes.'
+        });
+        console.log(error);
+      });
+  }
 
   private pesquisarPorId() {
     this.imovelService.getById(this.idSelecionado).subscribe(
@@ -119,10 +165,6 @@ export class CadImovelComponent implements OnInit {
 
     //Se o form estiver válido segue para o processo de salvar ou atualizar
     if (this.form.valid) {
-
-      // this.cliente.cidadeId = this.cliente.cidadeId.toString();
-      // this.cliente.estadoId = this.cliente.estadoId.toString();
-
       //Verificar qual operaçao o usuário está querendo executar
       const operacao = this.novoRegistro
         ? this.imovelService.add(this.imovel)
@@ -151,8 +193,6 @@ export class CadImovelComponent implements OnInit {
 
   private carregarDados() {
     if (this.imovel) {
-      this.form.get("imovelId").setValue(this.imovel.id);
-      this.form.get("clienteId").setValue(this.imovel.clienteId);
       this.form.get("usuarioId").setValue(this.imovel.usuarioId);
       this.form.get("tipoImovel").setValue(this.imovel.tipoImovel);
       this.form.get("descricao").setValue(this.imovel.descricao);
@@ -168,12 +208,9 @@ export class CadImovelComponent implements OnInit {
       this.form.get("bairro").setValue(this.imovel.bairro);
       this.form.get("cep").setValue(this.imovel.cep);
       this.form.get("complemento").setValue(this.imovel.complemento);
-      this.form.get("estadoId").setValue(this.imovel.estadoId);
-      this.form.get("cidadeId").setValue(this.imovel.cidadeId);
-      this.form.get("cidadeNome").setValue(this.imovel.cidadeNome);
       this.form.get("valorAluguel").setValue(this.imovel.valorAluguel);
       this.form.get("valorVenda").setValue(this.imovel.valorVenda);
-      this.form.get("situacao").setValue(this.imovel.situacao);
+      // this.form.get("situacao").setValue(this.imovel.situacao);
 
 
 
@@ -181,6 +218,10 @@ export class CadImovelComponent implements OnInit {
       // Campos 
       this.estadoSelecionado = Number(this.imovel.estadoId);
       this.cidadeSelecionada = Number(this.imovel.cidadeId);
+      
+      this.usuarioSelecionado= this.imovel.usuarioId;
+     
+      this.clienteSelecionado = this.imovel.clienteId;
     }
   }
 

@@ -19,6 +19,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NgxMaskModule } from 'ngx-mask';
+import { NzImageModule } from 'ng-zorro-antd/image';
+
 
 
 @NgModule({
@@ -44,6 +46,7 @@ import { NgxMaskModule } from 'ngx-mask';
     NzSpinModule,
     NzSelectModule,
     NzRadioModule,
+    NzImageModule,
     NgxMaskModule.forRoot()
   ]
 })

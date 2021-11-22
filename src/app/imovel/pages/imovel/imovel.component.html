@@ -30,7 +30,9 @@
                     <th>cidade</th>
                     <th>Dormitorios</th>
                     <th>Área construida</th>                    
-                    <th>Finalidade</th>                    
+                    <th>Finalidade</th> 
+                    <th>Imagem</th> 
+
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +50,12 @@
                     <td>{{item.dormitorios}}</td>                                        
                     <td>{{item.areaContruida}}</td>                                        
                     <td>{{item.finalidade}}</td>                    
+                    <td>
+                        <img nz-image width="100px" height="100px"
+                            [nzSrc]="item.urlImagem"
+                            [nzFallback]="fallbackImg"
+                            alt="" />
+                    </td>
                 </tr>
             </tbody>
         </nz-table>        
