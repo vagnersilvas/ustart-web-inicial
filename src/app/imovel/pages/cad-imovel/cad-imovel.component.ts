@@ -51,7 +51,7 @@ export class CadImovelComponent implements OnInit {
     suite: new FormControl(null, []),
     dormitorios: new FormControl(null, []),
     vagasGaragem: new FormControl(0, []),
-    areaContruida: new FormControl(1, [Validators.min(1)]),
+    areaConstruida: new FormControl(1, [Validators.min(1)]),
     areaTotal: new FormControl(1, [Validators.min(1)]),
     urlImagem: new FormControl(null, []),
     rua: new FormControl(null, []),
@@ -200,9 +200,9 @@ export class CadImovelComponent implements OnInit {
       this.form.get("suite").setValue(this.imovel.suite);
       this.form.get("dormitorios").setValue(this.imovel.dormitorios);
       this.form.get("vagasGaragem").setValue(this.imovel.vagasGaragem);
-      this.form.get("areaConstruida").setValue(this.imovel.areaContruida);
+      this.form.get("areaConstruida").setValue(this.imovel.areaConstruida);
       this.form.get("areaTotal").setValue(this.imovel.areaTotal);
-      this.form.get("UrlImagem").setValue(this.imovel.urlImagem);
+      this.form.get("urlImagem").setValue(this.imovel.urlImagem);
       this.form.get("rua").setValue(this.imovel.rua);
       this.form.get("numero").setValue(this.imovel.numero);
       this.form.get("bairro").setValue(this.imovel.bairro);

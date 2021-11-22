@@ -21,7 +21,7 @@ export class Imovel {
     public descricao: string
     public finalidade: string
     public situacao: string
-    public areaContruida: string
+    public areaConstruida: string
     public areaTotal: string
     public valorVenda: string
     public valorAluguel: string
