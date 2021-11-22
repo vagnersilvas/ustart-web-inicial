@@ -52,7 +52,7 @@
                     <td>{{item.finalidade}}</td>                    
                     <td>
                         <img nz-image width="100px" height="100px"
-                            [nzSrc]="item.urlImagem"
+                            [nzSrc]="item.urlImagem || ''"
                             [nzFallback]="fallbackImg"
                             alt="" />
                     </td>
