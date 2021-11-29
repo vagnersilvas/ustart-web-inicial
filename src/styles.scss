@@ -1,9 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-    --color-primary: #0095d8;
-    --box-shadow-base: 0 2px 3px 0 rgba(0, 0, 0, .16);
+    --color-primary: #e76b0c;
+    --box-shadow-base: 0 2px 3px 0 rgba(0, 0, 0, 0.16);
 }
-
+html {
+    --antd-wave-shadow-color: #e76b0c;
+    --scroll-bar: 0;
+}
 nz-content {
     padding-left: 24px;
     padding-right: 24px;
@@ -14,4 +17,78 @@ nz-content {
 [nz-button] {
     margin-right: 8px;
     margin-bottom: 8px;
+}
+
+.ant-menu.ant-menu-dark {
+    background: #000000;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected,
+.ant-menu-submenu-popup .ant-menu-dark .ant-menu-item-selected {
+    background: #e76b0c !important;
+}
+.ant-menu-item-selected:visited,
+.ant-menu-item-selected:focus,
+.ant-menu-item-selected:hover,
+.ant-menu-item-selected:focus-within,
+.ant-menu-item-selected:active {
+    background: #e76b0c !important;
+}
+.ant-btn-primary{
+    background: #e76b0c;
+    border-color: #e76b0c;
+
+}
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+    background: #ffffff;
+
+    border-color: #e76b0c;
+    color: #e76b0c;
+}
+
+.ant-btn > .anticon + span,
+.ant-btn > span + .anticon {
+    margin: 0;
+}
+
+.ant-btn:hover,
+.ant-btn:focus {
+    color: #e76b0c;
+    border-color: #e76b0c;
+}
+.ant-radio-inner::after {
+    background: #e76b0c;
+}
+.ant-radio-checked .ant-radio-inner {
+    border-color: #e76b0c;
+}
+.ant-radio-wrapper:hover .ant-radio,
+.ant-radio:hover .ant-radio-inner,
+.ant-radio-input:focus + .ant-radio-inner {
+    border-color: #e76b0c;
+}
+.margin {
+    margin: 0 !important;
+}
+
+.inner-content {
+    padding:0px !important;
+}
+.ant-input:focus,
+.ant-input-focused,
+.ant-input:hover {
+    border-color: #e76b0c;
+    box-shadow: none;
+}
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused,
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+    border-color: #e76b0c;
+    outline: 0;
+    box-shadow: none;
+}
+
+.ant-spin-nested-loading {
+    margin-top: 15px;
 }

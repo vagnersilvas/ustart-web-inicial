@@ -1,14 +1,24 @@
+
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+
+}
 .login-container {
     display: grid;
     place-items: center;
     min-height: 100vh;
+    width: 100vw;
     background-color: #ffffff;
     background-image: url('../../../../assets/fundo.jpg');
-    background-position: center top;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
-
     .inner-container {
         display: flex;
         flex-direction: column;
@@ -18,7 +28,7 @@
         min-height: 450px;
         width: 400px;
         position: relative;
-        background-color: #8b8b8cd9;
+        background-color: #000000;
 
         .logo-container {
             width: 100%;
@@ -34,7 +44,7 @@
     }
 
     .login-button {
-        background-color: #0095d8;
+        background-color: #e76b0c;
         color: #fff;
         font-weight: 600;
         margin-top: 16px;
