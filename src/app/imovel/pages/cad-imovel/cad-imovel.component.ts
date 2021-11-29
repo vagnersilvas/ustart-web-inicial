@@ -48,18 +48,18 @@ export class CadImovelComponent implements OnInit {
     tipoImovel: new FormControl(null, []),
     descricao: new FormControl(null, []),
     finalidade: new FormControl(null, []),
-    suite: new FormControl(null, []),
-    dormitorios: new FormControl(null, []),
+    dormitorios: new FormControl(0, []),
+    suite: new FormControl(0, []),
     vagasGaragem: new FormControl(0, []),
-    areaConstruida: new FormControl(1, [Validators.min(1)]),
-    areaTotal: new FormControl(1, [Validators.min(1)]),
+    areaConstruida: new FormControl(0, []),
+    areaTotal: new FormControl(0, []),
     urlImagem: new FormControl(null, []),
     rua: new FormControl(null, []),
     numero: new FormControl(null, []),
     bairro: new FormControl(null, []),
     complemento: new FormControl(null, []),
     cep: new FormControl(null, []),
-    estadoId: new FormControl(null, []),
+    estadoId: new FormControl(null),
     cidadeId: new FormControl(null, []),
     valorAluguel: new FormControl(1, [Validators.min(1)]),
     valorVenda: new FormControl(1, [Validators.min(1)]),
@@ -102,17 +102,108 @@ export class CadImovelComponent implements OnInit {
   public ImovelFinalidadeChange() {
     if (this.ImovelFinalidade) {
       this.form.get("valorAluguel").setValidators(Validators.required)
+      this.form.get("finalidade").setValue("Locação");
     } else {
       this.form.get("valorAluguel").clearValidators()
+      
     }
 
     if (this.ImovelFinalidade == false) {
       this.form.get("valorVenda").setValidators(Validators.required)
+      this.form.get("finalidade").setValue("Venda");
+
     } else {
       this.form.get("valorVenda").clearValidators()
     }
   }
- 
+
+  private pesquisarPorId() {
+    this.imovelService.getById(this.idSelecionado).subscribe(
+      (result) => {
+        this.imovel = result;
+        this.carregarDados();
+      },
+      (err) => { }
+    );
+  }
+
+  public cancelar(): void {
+    this.router.navigateByUrl(AppRoutes.Imovel.base());
+  }
+
+  public salvar(): void {
+
+    //Passa os valores do form para o objeto
+    AssignFormHelper.assignFormValues<Imovel>(this.form, this.imovel);
+
+    //Se o form estiver válido segue para o processo de salvar ou atualizar
+    if (this.form.valid) {
+      this.imovel.cidadeId = this.imovel.cidadeId.toString();
+      this.imovel.estadoId = this.imovel.estadoId.toString();
+      //Verificar qual operaçao o usuário está querendo executar
+      const operacao = this.novoRegistro
+        ? this.imovelService.add(this.imovel)
+        : this.imovelService.update(this.imovel);
+
+      operacao.subscribe((result) => {
+        this.cancelar();
+      },
+        (err) => {
+          let msg: string = '';
+          if (err.error) {
+            for (const iterator of err.error) {
+              msg += `<p>${iterator.message}</p>`
+            }
+
+          }
+          this.modalService.error({
+            nzTitle: 'Falha ao registrar o registro',
+            nzContent: `<p>Verifique os dados e tente novamente.</p>
+                      ${msg}`
+          });
+
+        })
+    }
+  }
+
+  private carregarDados() {
+    if (this.imovel) {
+      
+
+      this.form.get("tipoImovel").setValue(this.imovel.tipoImovel);
+      this.form.get("descricao").setValue(this.imovel.descricao);
+      this.form.get("finalidade").setValue(this.imovel.finalidade);
+      this.form.get("dormitorios").setValue(this.imovel.dormitorios);
+      this.form.get("suite").setValue(this.imovel.suite);
+      this.form.get("vagasGaragem").setValue(this.imovel.vagasGaragem);
+      this.form.get("areaConstruida").setValue(this.imovel.areaConstruida);
+      this.form.get("areaTotal").setValue(this.imovel.areaTotal);
+      this.form.get("urlImagem").setValue(this.imovel.urlImagem);
+
+      this.form.get("rua").setValue(this.imovel.rua);
+      this.form.get("numero").setValue(this.imovel.numero);
+      this.form.get("bairro").setValue(this.imovel.bairro);
+      this.form.get("complemento").setValue(this.imovel.complemento);
+      this.form.get("cep").setValue(this.imovel.cep);
+      this.form.get("situacao").setValue(this.imovel.situacao);
+      this.form.get("estadoId").setValue(this.imovel.estadoId);
+      this.form.get("cidadeId").setValue(this.imovel.cidadeId);
+
+      this.form.get("valorAluguel").setValue(this.imovel.valorAluguel);
+      this.form.get("valorVenda").setValue(this.imovel.valorVenda);
+
+      this.form.get("usuarioId").setValue(this.imovel.usuarioId);
+      this.form.get("clienteId").setValue(this.imovel.clienteId);
+      // Campos 
+      this.estadoSelecionado = Number(this.imovel.estadoId);
+      this.cidadeSelecionada = Number(this.imovel.cidadeId);
+      
+      this.usuarioSelecionado= this.imovel.usuarioId;
+     
+      this.clienteSelecionado = this.imovel.clienteId;
+    }
+  }
+   
   private carregarClientes() {
     this.clienteService.get("").subscribe(
       (result) => {
@@ -144,86 +235,6 @@ export class CadImovelComponent implements OnInit {
       });
   }
 
-  private pesquisarPorId() {
-    this.imovelService.getById(this.idSelecionado).subscribe(
-      (result) => {
-        this.imovel = result;
-        this.carregarDados();
-      },
-      (err) => { }
-    );
-  }
-
-  public cancelar(): void {
-    this.router.navigateByUrl(AppRoutes.Imovel.base());
-  }
-
-  public salvar(): void {
-
-    //Passa os valores do form para o objeto
-    AssignFormHelper.assignFormValues<Imovel>(this.form, this.imovel);
-
-    //Se o form estiver válido segue para o processo de salvar ou atualizar
-    if (this.form.valid) {
-      //Verificar qual operaçao o usuário está querendo executar
-      const operacao = this.novoRegistro
-        ? this.imovelService.add(this.imovel)
-        : this.imovelService.update(this.imovel);
-
-      operacao.subscribe((result) => {
-        this.cancelar();
-      },
-        (err) => {
-          let msg: string = '';
-          if (err.error) {
-            for (const iterator of err.error) {
-              msg += `<p>${iterator.message}</p>`
-            }
-
-          }
-          this.modalService.error({
-            nzTitle: 'Falha ao registrar o registro',
-            nzContent: `<p>Verifique os dados e tente novamente.</p>
-                      ${msg}`
-          });
-
-        })
-    }
-  }
-
-  private carregarDados() {
-    if (this.imovel) {
-      this.form.get("usuarioId").setValue(this.imovel.usuarioId);
-      this.form.get("tipoImovel").setValue(this.imovel.tipoImovel);
-      this.form.get("descricao").setValue(this.imovel.descricao);
-      this.form.get("finalidade").setValue(this.imovel.finalidade);
-      this.form.get("suite").setValue(this.imovel.suite);
-      this.form.get("dormitorios").setValue(this.imovel.dormitorios);
-      this.form.get("vagasGaragem").setValue(this.imovel.vagasGaragem);
-      this.form.get("areaConstruida").setValue(this.imovel.areaConstruida);
-      this.form.get("areaTotal").setValue(this.imovel.areaTotal);
-      this.form.get("urlImagem").setValue(this.imovel.urlImagem);
-      this.form.get("rua").setValue(this.imovel.rua);
-      this.form.get("numero").setValue(this.imovel.numero);
-      this.form.get("bairro").setValue(this.imovel.bairro);
-      this.form.get("cep").setValue(this.imovel.cep);
-      this.form.get("complemento").setValue(this.imovel.complemento);
-      this.form.get("valorAluguel").setValue(this.imovel.valorAluguel);
-      this.form.get("valorVenda").setValue(this.imovel.valorVenda);
-      // this.form.get("situacao").setValue(this.imovel.situacao);
-
-
-
-
-      // Campos 
-      this.estadoSelecionado = Number(this.imovel.estadoId);
-      this.cidadeSelecionada = Number(this.imovel.cidadeId);
-      
-      this.usuarioSelecionado= this.imovel.usuarioId;
-     
-      this.clienteSelecionado = this.imovel.clienteId;
-    }
-  }
 
   private carregarEstados() {
     this.ibgeService.getEstados().subscribe(
