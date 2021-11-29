@@ -1,4 +1,4 @@
-<nz-page-header  [nzTitle]="novoRegistro ? 'Novo registro' : 'Editar registro'">
+<nz-page-header nzBackIcon [nzTitle]="novoRegistro ? 'Novo registro' : 'Editar registro'">
     <nz-page-header-extra>
         <button nz-button (click)="cancelar()"><i nz-icon class="far fa-undo" nzTheme="outline"></i>Cancelar</button>
         <button nz-button nzType="primary" (click)="salvar()"><i nz-icon class="far fa-check"></i>Salvar</button>
@@ -23,7 +23,7 @@
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Tipo do imovel</nz-form-label>
                 <nz-form-item>
-                    <nz-form-control [nzSpan]="24" >
+                    <nz-form-control [nzSpan]="24" nzErrorTip="Campo requerido">
                         <input nz-input placeholder="Digite aqui..." formControlName="tipoImovel" id="tipoImovel" />
                     </nz-form-control>
                 </nz-form-item>
@@ -32,13 +32,13 @@
                 <div nz-col nzSm="24">
                     <nz-form-label nzFor="nome" [nzNoColon]="true">Valor aluguel</nz-form-label>
                     <nz-form-item>
-                        <nz-form-control [nzSpan]="24" >
+                        <nz-form-control [nzSpan]="24">
                             <input nz-input placeholder="Digite aqui..." formControlName="valorAluguel"
                                 id="valorAluguel" />
                         </nz-form-control>
                     </nz-form-item>
                 </div>
-                
+
             </ng-container>
             <ng-container *ngIf="ImovelFinalidade == false">
                 <div nz-col nzSm="24">
@@ -50,22 +50,37 @@
                     </nz-form-item>
                 </div>
             </ng-container>
-             <div nz-col nzSm="24">
+            <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Descrição</nz-form-label>
                 <nz-form-item>
-                    <nz-form-control [nzSpan]="24" >
+                    <nz-form-control [nzSpan]="24">
                         <input nz-input placeholder="Digite aqui..." formControlName="descricao" id="descricao" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div nz-col nzSm="24">
-                <nz-form-label nzFor="nome" [nzNoColon]="true">Finalidade</nz-form-label>
-                <nz-form-item>
-                    <nz-form-control [nzSpan]="24" >
-                        <input nz-input placeholder="Digite aqui..." formControlName="finalidade" id="finalidade" />
-                    </nz-form-control>
-                </nz-form-item>
-            </div>
+            <ng-container *ngIf="ImovelFinalidade">
+                <div nz-col nzSm="24">
+                    <nz-form-label nzFor="nome" [nzNoColon]="true">Finalidade</nz-form-label>
+                    <nz-form-item>
+                        <nz-form-control [nzSpan]="24">
+                            <input nz-input placeholder="Locação ou venda" formControlName="finalidade"
+                                id="finalidade" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="ImovelFinalidade==false">
+                <div nz-col nzSm="24">
+                    <nz-form-label nzFor="nome" [nzNoColon]="true">Finalidade</nz-form-label>
+                    <nz-form-item>
+                        <nz-form-control [nzSpan]="24">
+                            <input nz-input placeholder="Locação ou venda" formControlName="finalidade"
+                                id="finalidade" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </ng-container>
+
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Dormitórios</nz-form-label>
                 <nz-form-item>
@@ -77,7 +92,7 @@
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Suite</nz-form-label>
                 <nz-form-item>
-                    <nz-form-control [nzSpan]="24" >
+                    <nz-form-control [nzSpan]="24">
                         <input nz-input placeholder="Digite aqui..." formControlName="suite" id="suite" />
                     </nz-form-control>
                 </nz-form-item>
@@ -85,7 +100,7 @@
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Vaga de garagem</nz-form-label>
                 <nz-form-item>
-                    <nz-form-control [nzSpan]="24" >
+                    <nz-form-control [nzSpan]="24">
                         <input nz-input placeholder="Digite aqui..." formControlName="vagasGaragem" id="vagasGaragem" />
                     </nz-form-control>
                 </nz-form-item>
@@ -93,15 +108,16 @@
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Área construida</nz-form-label>
                 <nz-form-item>
-                    <nz-form-control [nzSpan]="24" >
-                        <input nz-input placeholder="Digite aqui..." formControlName="areaConstruida" id="areaConstruida" />
+                    <nz-form-control [nzSpan]="24">
+                        <input nz-input placeholder="Digite aqui..." formControlName="areaConstruida"
+                            id="areaConstruida" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Área total</nz-form-label>
                 <nz-form-item>
-                    <nz-form-control [nzSpan]="24" >
+                    <nz-form-control [nzSpan]="24">
                         <input nz-input placeholder="Digite aqui..." formControlName="areaTotal" id="areaTotal" />
                     </nz-form-control>
                 </nz-form-item>
@@ -109,15 +125,16 @@
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Url da Imagem</nz-form-label>
                 <nz-form-item>
-                    <nz-form-control [nzSpan]="24" >
+                    <nz-form-control [nzSpan]="24">
                         <input nz-input placeholder="Digite aqui..." formControlName="urlImagem" id="urlImagem" />
                     </nz-form-control>
                 </nz-form-item>
+
             </div>
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Rua</nz-form-label>
                 <nz-form-item>
-                    <nz-form-control [nzSpan]="24" >
+                    <nz-form-control [nzSpan]="24">
                         <input nz-input placeholder="Digite aqui..." formControlName="rua" id="rua" />
                     </nz-form-control>
                 </nz-form-item>
@@ -125,7 +142,7 @@
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Número</nz-form-label>
                 <nz-form-item>
-                    <nz-form-control [nzSpan]="24" >
+                    <nz-form-control [nzSpan]="24">
                         <input nz-input placeholder="Digite aqui..." formControlName="numero" id="numero" />
                     </nz-form-control>
                 </nz-form-item>
@@ -133,7 +150,7 @@
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Bairro</nz-form-label>
                 <nz-form-item>
-                    <nz-form-control [nzSpan]="24" >
+                    <nz-form-control [nzSpan]="24">
                         <input nz-input placeholder="Digite aqui..." formControlName="bairro" id="bairro" />
                     </nz-form-control>
                 </nz-form-item>
@@ -149,14 +166,13 @@
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Cep</nz-form-label>
                 <nz-form-item>
-                    <nz-form-control [nzSpan]="24" >
-                        <input nz-input placeholder="Digite aqui..." formControlName="cep" 
-                        mask="00.000-000" id="cep" />
+                    <nz-form-control [nzSpan]="24">
+                        <input nz-input placeholder="Digite aqui..." formControlName="cep" mask="00.000-000" id="cep" />
                     </nz-form-control>
                 </nz-form-item>
-            </div> 
+            </div>
             <div nz-col nzSm="24">
-                <nz-form-label nzFor="estado" [nzNoColon]="true">Estado</nz-form-label>                
+                <nz-form-label nzFor="estado" [nzNoColon]="true">Estado</nz-form-label>
                 <nz-form-item>
                     <nz-form-control [nzSpan]="24">
                         <nz-select nzShowSearch nzAllowClear [(ngModel)]="estadoSelecionado"
@@ -175,7 +191,7 @@
                 </nz-form-item>
             </div>
             <div nz-col nzSm="24">
-                <nz-form-label nzFor="cidade" [nzNoColon]="true">Cidade</nz-form-label>                
+                <nz-form-label nzFor="cidade" [nzNoColon]="true">Cidade</nz-form-label>
                 <nz-form-item>
                     <nz-form-control [nzSpan]="24">
                         <nz-select nzShowSearch nzAllowClear
@@ -193,18 +209,18 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
-           
+
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Situação</nz-form-label>
                 <nz-form-item>
-                    <nz-form-control [nzSpan]="24" nzErrorTip="E-mail inválido">
+                    <nz-form-control [nzSpan]="24">
                         <input nz-input placeholder="Digite aqui..." formControlName="situacao" id="situacao" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Cliente</nz-form-label>
-                <nz-form-item>
+                <nz-form-item nzErrorTip="Campo requerido">
                     <nz-select nzShowSearch nzAllowClear [(ngModel)]="clienteSelecionado"
                         [nzPlaceHolder]="carregandoClientes ? 'Carregando...' : 'Selecione...'"
                         formControlName="clienteId">
@@ -222,7 +238,7 @@
             </div>
             <div nz-col nzSm="24">
                 <nz-form-label nzFor="nome" [nzNoColon]="true">Usuario</nz-form-label>
-                <nz-form-item>
+                <nz-form-item nzErrorTip="Campo requerido">
                     <nz-select nzShowSearch nzAllowClear [(ngModel)]="usuarioSelecionado"
                         [nzPlaceHolder]="carregandoUsuario ? 'Carregando...' : 'Selecione...'"
                         formControlName="usuarioId">

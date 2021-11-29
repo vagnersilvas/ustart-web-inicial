@@ -25,12 +25,12 @@
             [nzScroll]="{ y: '450px' }">
             <thead>
                 <tr>
-                    <th nzWidth="150px">Ações</th>
-                    <th nzWidth="150px">Nome</th>
-                    <th nzWidth="150px">Razão S.</th>
+                    <th>Ações</th>
+                    <th>Nome</th>
+                    <th>Razão S.</th>
                     <th>E-mail</th>                    
                     <th>Fone</th>                    
-                    <th>imovel</th>                    
+                    <th>Cidade</th>                    
                 </tr>
             </thead>
             <tbody>
@@ -44,10 +44,10 @@
                         </button>
                     </td>
                     <td>{{item.nome}}</td>
-                    <td>{{item.RazaoSocial}}</td>                    
-                    <td>{{item.Email}}</td>                                        
-                    <td>{{item.Fone}}</td>                                        
-                    <td>{{item.imovel}}</td>                    
+                    <td>{{item.razaoSocial}}</td>                    
+                    <td>{{item.email}}</td>                                        
+                    <td>{{item.fone}}</td>                                        
+                    <td>{{item.cidadeNome}}</td>                    
                 </tr>
             </tbody>
         </nz-table>        
