@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { empty, from } from 'rxjs';
 import { AppRoutes } from 'src/app/app-routes';
 import { ClienteService } from 'src/app/data-services/clientes.service';
 import { IbgeService } from 'src/app/data-services/ibge.service';
@@ -9,7 +10,6 @@ import { AssignFormHelper } from 'src/app/helper/AssignFormHelper';
 import { Cliente } from 'src/app/models/clientes/cliente';
 import { Cidade } from 'src/app/models/ibge/cidade';
 import { Estado } from 'src/app/models/ibge/estado';
-
 @Component({
   selector: 'app-cad-cliente',
   templateUrl: './cad-cliente.component.html',
@@ -42,7 +42,7 @@ export class CadClienteComponent implements OnInit {
     bairro: new FormControl(null, []),
     estadoId: new FormControl(null),
     cidadeId: new FormControl(null, []),
-    CidadeNome: new FormControl(null, []),
+    cidadeNome: new FormControl(null, []),
     cep: new FormControl(null, []),
     fone: new FormControl(null, []),
     email: new FormControl(null, [Validators.email]),
@@ -114,6 +114,11 @@ export class CadClienteComponent implements OnInit {
     //Se o form estiver válido segue para o processo de salvar ou atualizar
     if (this.form.valid) {
 
+
+      this.cliente.cidadeId = this.cliente.cidadeId.toString();
+      this.cliente.estadoId = this.cliente.estadoId.toString();
+
+
       const operacao = this.novoRegistro
         ? this.clienteService.add(this.cliente)
         : this.clienteService.update(this.cliente);
@@ -142,23 +147,23 @@ export class CadClienteComponent implements OnInit {
   private carregarDados() {
     if (this.cliente) {
       this.form.get("nome").setValue(this.cliente.nome);
-      this.form.get("razaoSocial").setValue(this.cliente.RazaoSocial);
-      this.form.get("cnpj").setValue(this.cliente.CNPJ);
-      this.form.get("cpf").setValue(this.cliente.CPF);
-      this.form.get("rua").setValue(this.cliente.Rua);
-      this.form.get("numero").setValue(this.cliente.Numero);
-      this.form.get("complemento").setValue(this.cliente.Complemento);
-      this.form.get("bairro").setValue(this.cliente.Bairro);
-      this.form.get("estadoId").setValue(this.cliente.EstadoId);
-      this.form.get("cidadeId").setValue(this.cliente.CidadeId);
-      this.form.get("cidadeNome").setValue(this.cliente.CidadeNome);
-      this.form.get("cep").setValue(this.cliente.CEP);
-      this.form.get("fone").setValue(this.cliente.Fone);
-      this.form.get("email").setValue(this.cliente.Email);
+      this.form.get("razaoSocial").setValue(this.cliente.razaoSocial);
+      this.form.get("cnpj").setValue(this.cliente.cnpj);
+      this.form.get("cpf").setValue(this.cliente.cpf);
+      this.form.get("rua").setValue(this.cliente.rua);
+      this.form.get("numero").setValue(this.cliente.numero);
+      this.form.get("complemento").setValue(this.cliente.complemento);
+      this.form.get("bairro").setValue(this.cliente.bairro);
+      this.form.get("estadoId").setValue(this.cliente.estadoId);
+      this.form.get("cidadeId").setValue(this.cliente.cidadeId);
+      this.form.get("cidadeNome").setValue(this.cliente.cidadeNome);
+      this.form.get("cep").setValue(this.cliente.cep);
+      this.form.get("fone").setValue(this.cliente.fone);
+      this.form.get("email").setValue(this.cliente.email);
 
       // Campos 
-      this.estadoSelecionado = Number(this.cliente.EstadoId);
-      this.cidadeSelecionada = Number(this.cliente.CidadeId);
+      this.estadoSelecionado = Number(this.cliente.estadoId);
+      this.cidadeSelecionada = Number(this.cliente.cidadeId);
     }
   }
 
