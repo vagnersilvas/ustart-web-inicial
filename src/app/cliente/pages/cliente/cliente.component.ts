@@ -36,9 +36,14 @@ export class ClienteComponent implements OnInit {
     this.router.navigateByUrl(url);
   }
 
-  public localizar(event: any): void {    
-    this.pesquisar(event.target.value);
-
+  public localizar(event: any): void {
+    const value = event.target.value;
+    if (value && value.trim() !== '') {
+      console.log("Localizar", value)
+      this.pesquisar(value);
+    } else {
+      this.limparPesquisa();
+    }
   }
 
   private pesquisar(pesquisa: string): void {
