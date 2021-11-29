@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -55,7 +55,9 @@ registerLocaleData(pt);
     NzIconModule,
     LoginModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: pt_BR }],
+  providers: [
+    { provide: NZ_I18N, useValue: pt_BR },
+    { provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
