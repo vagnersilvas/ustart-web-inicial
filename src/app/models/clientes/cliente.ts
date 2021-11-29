@@ -6,19 +6,19 @@ export class Cliente {
     public imovelId: string
     public imovel: Imovel
     public nome: string
-    public RazaoSocial: string
-    public CNPJ: string
-    public CPF: string
-    public Rua: string
-    public Numero: string
-    public Complemento: string
-    public Bairro: string
-    public EstadoId: string
-    public CidadeId: string
-    public CidadeNome: string
-    public CEP: string
-    public Fone: string
-    public Email: string
+    public razaoSocial: string
+    public cnpj: string
+    public cpf : string
+    public rua: string
+    public numero: string
+    public complemento: string
+    public bairro: string
+    public estadoId: string
+    public cidadeId: string
+    public cidadeNome: string
+    public cep: string
+    public fone: string
+    public email: string
 
     
     constructor(init?: Partial<Cliente>) {
