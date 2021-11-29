@@ -1,7 +1,7 @@
 <nz-page-header nzBackIcon nzTitle="Consulta imoveis">
     <nz-page-header-extra>
         <button nz-button nzType="primary" (click)="novo()"><i nz-icon nzType="plus"></i>Novo</button>
-      </nz-page-header-extra>
+    </nz-page-header-extra>
 </nz-page-header>
 
 <nz-content>
@@ -11,7 +11,7 @@
             <nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="6">
                 <div class="filter-col">
                     <nz-input-group [nzSuffix]="suffixIconSearch">
-                        <input type="text" nz-input placeholder="Localizar por descricao" (keyup)="localizar($event)"/>                        
+                        <input type="text" nz-input placeholder="Localizar por descricao" (keyup)="localizar($event)" />
                     </nz-input-group>
                     <ng-template #suffixIconSearch>
                         <i nz-icon nzType="search"></i>
@@ -21,17 +21,29 @@
         </nz-row>
     </div>
     <nz-spin nzTip="Consultando..." [nzSpinning]="false">
-        <nz-table #dados [nzData]="imovel"  [nzLoading]="loading" nzSize="small" [nzFrontPagination]="false" [nzBordered]="true"
-            [nzScroll]="{ y: '450px' }">
+        <nz-table #dados [nzData]="imovel" [nzLoading]="loading" nzSize="small" [nzFrontPagination]="false"
+            [nzBordered]="true" [nzScroll]="{ y: '500px'}">
             <thead>
                 <tr>
-                    <th>Ações</th>                    
+                    <th>Ações</th>
                     <th>Descrição</th>
-                    <th>cidade</th>
-                    <th>Dormitorios</th>
-                    <th>Área construida</th>                    
-                    <th>Finalidade</th> 
-                    <th>Imagem</th> 
+                    <th>Tipo do imovel</th>
+                    <!-- <th>Dormitorios</th> -->
+                    <!-- <th>Suite</th> -->
+                    <th>Finalidade</th>
+                    <!-- <th>Vagas garagem</th> -->
+                    <!-- <th>Área construida</th> -->
+                    <!-- <th>Área total</th> -->
+                    <!-- <th>Rua</th> -->
+                    <!-- <th>Número</th> -->
+                    <!-- <th>Bairro</th> -->
+                    <!-- <th>Complemento</th>  -->
+                    <!-- <th>CEP</th>  -->
+                    <th>Situação</th> 
+                    <th>Cidade</th> 
+                    <th>valor aluguel</th> 
+                    <th>Valor venda</th> 
+                    <th>Imagem</th>
 
                 </tr>
             </thead>
@@ -46,18 +58,29 @@
                         </button>
                     </td>
                     <td>{{item.descricao}}</td>
-                    <td>{{item.cidadeNome}}</td>                    
-                    <td>{{item.dormitorios}}</td>                                        
-                    <td>{{item.areaConstruida}}</td>                                        
-                    <td>{{item.finalidade}}</td>                    
+                    <td>{{item.tipoImovel}}</td>
+                    <!-- <td>{{item.dormitorios}}</td> -->
+                    <!-- <td>{{item.suite}}</td> -->
+                    <td>{{item.finalidade}}</td>
+                    <!-- <td>{{item.vagasGaragem}}</td> -->
+                    <!-- <td>{{item.areaConstruida}}m&#x00B2;</td> -->
+                    <!-- <td>{{item.areaTotal}}m&#x00B2;</td> -->
+                    <!-- <td>{{item.rua}}</td> -->
+                    <!-- <td>{{item.numero}}</td> -->
+                    <!-- <td>{{item.bairro}}</td> -->
+                    <!-- <td>{{item.complemento}}</td>                     -->
+                    <!-- <td>{{item.cep}}</td>  -->
+                    <td>{{item.situacao}}</td>                    
+                    <td>{{item.cidadeNome}}</td>       
+                    <td>{{item.valorAluguel | currency : 'BRL'}}</td>                    
+                    <td>{{item.valorVenda | currency : 'BRL'}}</td>                    
+
                     <td>
-                        <img nz-image width="100px" height="100px"
-                            [nzSrc]="item.urlImagem || ''"
-                            [nzFallback]="fallbackImg"
-                            alt="" />
+                        <img nz-image width="100px" height="100px" [nzSrc]="item.urlImagem"
+                            [nzFallback]="fallbackImg" alt="" />
                     </td>
                 </tr>
             </tbody>
-        </nz-table>        
+        </nz-table>
     </nz-spin>
 </nz-content>
