@@ -11,7 +11,7 @@
             <nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="6">
                 <div class="filter-col">
                     <nz-input-group [nzSuffix]="suffixIconSearch">
-                        <input type="text" nz-input placeholder="Localizar por descricao" (keyup)="localizar($event)" />
+                        <input type="text" nz-input placeholder="Localizar" (keyup)="localizar($event)" />
                     </nz-input-group>
                     <ng-template #suffixIconSearch>
                         <i nz-icon nzType="search"></i>
@@ -40,7 +40,7 @@
                     <!-- <th>Complemento</th>  -->
                     <!-- <th>CEP</th>  -->
                     <th>Situação</th> 
-                    <th>Cidade</th> 
+                    <!-- <th>Cidade</th>  -->
                     <th>valor aluguel</th> 
                     <th>Valor venda</th> 
                     <th>Imagem</th>
@@ -71,7 +71,7 @@
                     <!-- <td>{{item.complemento}}</td>                     -->
                     <!-- <td>{{item.cep}}</td>  -->
                     <td>{{item.situacao}}</td>                    
-                    <td>{{item.cidadeNome}}</td>       
+                    <!-- <td>{{item.cidadeNome}}</td>        -->
                     <td>{{item.valorAluguel | currency : 'BRL'}}</td>                    
                     <td>{{item.valorVenda | currency : 'BRL'}}</td>                    
 

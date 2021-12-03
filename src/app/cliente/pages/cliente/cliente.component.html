@@ -11,7 +11,7 @@
             <nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="6">
                 <div class="filter-col">
                     <nz-input-group [nzSuffix]="suffixIconSearch">
-                        <input type="text" nz-input placeholder="Localizar por descricao" (keyup)="localizar($event)"/>                        
+                        <input type="text" nz-input placeholder="Localizar" (keyup)="localizar($event)"/>                        
                     </nz-input-group>
                     <ng-template #suffixIconSearch>
                         <i nz-icon nzType="search"></i>
@@ -30,7 +30,6 @@
                     <th>Razão S.</th>
                     <th>E-mail</th>                    
                     <th>Fone</th>                    
-                    <th>Cidade</th>                    
                 </tr>
             </thead>
             <tbody>
@@ -47,7 +46,6 @@
                     <td>{{item.razaoSocial}}</td>                    
                     <td>{{item.email}}</td>                                        
                     <td>{{item.fone}}</td>                                        
-                    <td>{{item.cidadeNome}}</td>                    
                 </tr>
             </tbody>
         </nz-table>        
